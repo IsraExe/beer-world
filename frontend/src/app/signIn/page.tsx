@@ -1,15 +1,21 @@
 "use client";
 
-import { Avatar, Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container, InputLabel, OutlinedInput, InputAdornment, IconButton, FormControl } from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Copyright from "@/components/Copyright";
+import { useEffect, useState } from 'react';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { useState } from "react";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { Avatar, Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container, InputLabel, OutlinedInput, InputAdornment, IconButton, FormControl } from '@mui/material';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Copyright from '@/components/Copyright';
+
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+
 
 const defaultTheme = createTheme();
 
@@ -21,15 +27,27 @@ export const signInSchema = z.object({
 export type TSignInSchema = z.infer<typeof signInSchema>;
 
 export default function SignIn() {
+
+  const searchParams = useSearchParams();
+  const redirectFromSignUp = searchParams.get('showModal');
+
+  const notify = () => toast("Usuário cadastrado com sucesso!");
+  const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (Boolean(redirectFromSignUp)) {
+      notify();
+
+      router.replace(pathname, undefined);
+    };
+  }, []);
+
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => event.preventDefault();
 
   const { register, handleSubmit, formState: { errors } } = useForm<TSignInSchema>({
     resolver: zodResolver(signInSchema),
@@ -140,6 +158,9 @@ export default function SignIn() {
           </Box>
         </Box>
         <Copyright />
+
+        <ToastContainer />
+
       </Container>
     </ThemeProvider>
   );

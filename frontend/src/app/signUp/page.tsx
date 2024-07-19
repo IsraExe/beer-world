@@ -1,5 +1,7 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -29,8 +31,14 @@ export default function SignUp() {
     resolver: zodResolver(signUpSchema),
   });
 
+  const router = useRouter();
+
   const handleSignUp = async (data: TSignUpSchema) => {
     console.log(data);
+    
+    if (true) router.push('/signIn?showModal=true');
+
+    return;
 
     const response = await fetch('http://localhost:3001/user/create', {
       method: 'POST',
@@ -41,8 +49,7 @@ export default function SignUp() {
       credentials: 'include'
     });
 
-    console.log(response)
-
+    // if (response.ok) router.push('/signIn?showModal=true');
 
   };
 
