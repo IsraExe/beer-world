@@ -2,10 +2,10 @@
   <img width="260" src="https://raw.githubusercontent.com/myTapp/temos-vagas/master/logo_mytapp_primario.png?raw=true">
 </p>
 
-## Teste full-stack developer (v1.2)
+## O Teste full-stack developer (v1.2)
 O teste consiste em criar uma aplicação com Node.js e PostgreSQL que expõe uma API REST de um CRUD de usuário e uma aplicação web contendo uma interface para login e acesso a dados de uma API externa.
 
-Depois de logado o usuário da aplicação web deve poder acessar dados da [Punk API v2](https://punkapi.com/) - uma API aberta da cervejaria BrewDog.
+Depois de logado o usuário da aplicação web deve poder acessar dados da [API](https://app2.mytapp.com.br/api/app/getTaps?e_id=456).
 
 ### Back-end
 - Todos os endpoints de consulta de dados devem ter autenticação por webtoken ou similar
@@ -17,7 +17,7 @@ Depois de logado o usuário da aplicação web deve poder acessar dados da [Punk
 O front-end deve apresentar pelo menos os seguintes requisitos:
   - Interface de login
     - Feedbacks de usuário ou senha incorreta
-  - Listagem dos dados da Punk API v2
+  - Listagem dos dados da API
   - Paginação dos dados
   
 > Pode ser utilizado qualquer framework front-end, preprocessadores de css, task runners, bundlers, ... de sua preferência, mas nenhum deles é de uso obrigatório.
