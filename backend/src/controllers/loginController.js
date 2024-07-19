@@ -1,7 +1,11 @@
 import bcrypt from 'bcrypt';
+import { PrismaClient } from '@prisma/client'
+
 import { badRequestError, unauthorizedError } from '../utils/errorException.js';
 import cookiesOptions from '../helpers/cookiesOptions.js';
 import createTokens from '../helpers/createTokens.js';
+
+const prisma = new PrismaClient();
 
 const login = async (req, res, next) => {
 
@@ -15,24 +19,20 @@ const login = async (req, res, next) => {
 
     const emailUser = email.toLowerCase();
 
-    const user = {
-        email: 'visit@beerworld.com.br',
-        de_password: '1234',
-    }; // logica achar usuário banco de dados;
+    const user = await prisma.user.findUnique({ where: { email } });
 
     if (!user) return next(unauthorizedError('User and/or password invalid'));
 
-    // const isValidPassword = await bcrypt.compare(password, user.de_password);
-    const isValidPassword = password === user.de_password;
+    const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword) return next(unauthorizedError('User and/or password invalid'));
 
     const { token } = createTokens(emailUser);
 
-    const { de_password, id_user, ...userDetails } = user;
+    const { password: removePassFromUserInfo, ...userDetails } = user;
 
     res.cookie('token', token, cookieOptions);
 
-    return res.status(200).send({ message: 'Login successfully', token, user: userDetails });
+    return res.status(200).send({ message: 'Login successfully', user: userDetails });
 
 };
 

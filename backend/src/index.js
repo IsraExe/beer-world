@@ -6,7 +6,8 @@ import logger from './middlewares/logger.js';
 import errorHandler from './middlewares/errorHandler.js';
 import limiter from './middlewares/limiter.js';
 
-import loginRoutes from './routes/loginRoutes.js'
+import loginRoutes from './routes/loginRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 import { SERVER_PORT, CORS_OPTIONS } from './config/constants.js';
 
@@ -23,10 +24,7 @@ app.use(limiter);
 app.use(logger);
 
 app.use('/login', loginRoutes);
-
-app.use('/', (req, res) => {
-    return res.status(200).json({ message: 'Olá, mundo!'})
-});
+app.use('/user', userRoutes);
 
 app.use((req, res) => res.status(404).send({ error: 'Not found route' }));
 

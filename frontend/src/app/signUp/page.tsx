@@ -1,5 +1,9 @@
 'use client';
 
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
 import { Avatar, Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container } from '@mui/material';
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -7,17 +11,39 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import Copyright from '@/components/Copyright';
 
+export const signUpSchema = z.object({
+  name: z.string().min(1, "O campo 'Nome Completo' é obrigatório!"),
+  email: z.string().min(1, "O campo 'Email' é obrigatório!").email("Email inválido!"),
+  password: z.string().min(1, "O campo 'Senha' é obrigatório!")
+});
+
+export type TSignUpSchema = z.infer<typeof signUpSchema>;
+
+
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+
+  const { register, handleSubmit, formState: { errors } } = useForm<TSignUpSchema>({
+    resolver: zodResolver(signUpSchema),
+  });
+
+  const handleSignUp = async (data: TSignUpSchema) => {
+    console.log(data);
+
+    const response = await fetch('http://localhost:3001/user/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data),
+      credentials: 'include'
     });
+
+    console.log(response)
+
+
   };
 
   return (
@@ -38,45 +64,38 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate onSubmit={handleSubmit(handleSignUp)} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
+                  {...register('name')}
                   autoComplete="given-name"
-                  name="firstName"
+                  name="name"
                   required
                   fullWidth
                   id="firstName"
-                  label="First Name"
+                  label="Nome Completo"
                   autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  {...register('email')}
                   required
                   fullWidth
                   id="email"
-                  label="Email Address"
+                  label="Email"
                   name="email"
                   autoComplete="email"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  {...register('password')}
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label="Senha"
                   type="password"
                   id="password"
                   autoComplete="new-password"
@@ -89,18 +108,18 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Cadastrar
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/signIn" variant="body2">
-                  Already have an account? Sign in
+                 Já possui uma conta? Faça o login
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
+        <Copyright  />
       </Container>
     </ThemeProvider>
   );
