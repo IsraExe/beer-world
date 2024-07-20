@@ -8,6 +8,7 @@ import errorHandler from './middlewares/errorHandler.js';
 import limiter from './middlewares/limiter.js';
 
 import loginRoutes from './routes/loginRoutes.js';
+import logoutRoutes from './routes/logoutRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 
@@ -27,8 +28,8 @@ app.use(limiter);
 app.use(logger);
 
 app.use('/auth', authRoutes);
-
 app.use('/login', loginRoutes);
+app.use('/logout', logoutRoutes);
 app.use('/user', userRoutes);
 
 app.use((req, res) => res.status(404).send({ error: 'Not found route' }));
