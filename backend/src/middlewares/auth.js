@@ -3,13 +3,13 @@ import { badRequestError } from '../utils/errorException.js';
 
 const auth = async (req, res, next) => {
 
-    const token = req.headers.authorization;
+    const { token } = req.cookies;
 
     if (!token) return next(badRequestError('No token provided'));
     
-    const { login } = await checkAuth(token);
+    const { email, id } = await checkAuth(token);
 
-    req.metadata = { login };
+    req.metadata = { email, id };
 
     return next();
 

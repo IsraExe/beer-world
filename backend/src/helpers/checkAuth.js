@@ -9,9 +9,9 @@ const checkAuth = async (token) => {
 
     const decoded = await verifyJwt(token, JWT_SECRET);
 
-    const { login } = decoded;
+    const { id, email } = decoded;
 
-    return { login };
+    return { id, email };
 
 };
 

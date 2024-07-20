@@ -17,8 +17,6 @@ const login = async (req, res, next) => {
 
     if (!email || !password) return next(badRequestError('Email and/or password is missing'));
 
-    const emailUser = email.toLowerCase();
-
     const user = await prisma.user.findUnique({ where: { email } });
 
     if (!user) return next(unauthorizedError('User and/or password invalid'));
@@ -26,7 +24,7 @@ const login = async (req, res, next) => {
     const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword) return next(unauthorizedError('User and/or password invalid'));
 
-    const { token } = createTokens(emailUser);
+    const { token } = createTokens(user.id);
 
     const { password: removePassFromUserInfo, ...userDetails } = user;
 
