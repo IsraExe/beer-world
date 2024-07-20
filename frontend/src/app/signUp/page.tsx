@@ -7,14 +7,15 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
-import { Button, CssBaseline, Link, Grid, Box, Typography, Container } from '@mui/material';
+import { Button, Link, Grid, Box, Typography } from '@mui/material';
 
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import SportsBarIcon from '@mui/icons-material/SportsBar';
 
-import Copyright from '@/components/Copyright';
+import Copyright from '@/components/Footer';
 import InputField from '@/components/InputField';
 import FieldError from '@/components/FieldError';
+
+import styles from './page.module.css';
 
 export const signUpSchema = z.object({
   name: z.string().min(1, "O campo nome completo é obrigatório!").max(50, "O campo nome completo deve ter no maximo 50 caracteres."),
@@ -23,8 +24,6 @@ export const signUpSchema = z.object({
 });
 
 export type TSignUpSchema = z.infer<typeof signUpSchema>;
-
-const defaultTheme = createTheme();
 
 export default function SignUp() {
   const [signUpError, setSignUpError] = useState<string | null>(null);
@@ -54,31 +53,28 @@ export default function SignUp() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container component='main' maxWidth='xs'>
-        <CssBaseline />
+      <Box component='main' maxWidth='xs' className={styles['signup-container']}>
         <Box
           sx={{
             marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
+            alignItems: 'center', 
           }}
         >
-          <LockOutlinedIcon />
-          <Typography component='h1' variant='h5'>
-            Cadastre-se
+          <SportsBarIcon sx={{ color: '#dcd01258', fontSize: '90px' }} />
+          <Typography component='h1' variant='h4' color="white">
+            Beer World - Cadastre-se
           </Typography>
           <Typography component='p' sx={{ color: 'red' }}>
             {signUpError}
           </Typography>
-          <Box component='form' noValidate onSubmit={handleSubmit(handleSignUp)} sx={{ mt: 3 }}>
+          <Box component='form' noValidate onSubmit={handleSubmit(handleSignUp)} mt={3}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <InputField
                   {...register('name')}
                   label='Nome Completo'
-                  error={!!errors.name}
                 />
                 {errors.name && <FieldError message={errors.name.message!} />}
               </Grid>
@@ -86,7 +82,6 @@ export default function SignUp() {
                 <InputField
                   {...register('email')}
                   label='Email'
-                  error={!!errors.email}
                 />
                 {errors.email && <FieldError message={errors.email.message!} />}
               </Grid>
@@ -94,7 +89,7 @@ export default function SignUp() {
                 <InputField
                   {...register('password')}
                   label='Password'
-                  error={!!errors.password}
+                  type='password'
                 />
                 {errors.password && <FieldError message={errors.password.message!} />}
               </Grid>
@@ -103,7 +98,7 @@ export default function SignUp() {
               type='submit'
               fullWidth
               variant='contained'
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2, color: 'white', textTransform: 'none' }}
             >
               Cadastrar
             </Button>
@@ -117,7 +112,6 @@ export default function SignUp() {
           </Box>
         </Box>
         <Copyright />
-      </Container>
-    </ThemeProvider>
+      </Box>
   );
 }

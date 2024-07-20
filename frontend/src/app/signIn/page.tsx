@@ -9,16 +9,16 @@ import { z } from 'zod';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { Button, CssBaseline, Link, Grid, Box, Typography, Container, InputLabel, OutlinedInput, InputAdornment, IconButton, FormControl } from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Copyright from '@/components/Copyright';
+import { Button, Link, Grid, Box, Typography, InputLabel, OutlinedInput, InputAdornment, IconButton, FormControl } from '@mui/material';
 
+import SportsBarIcon from '@mui/icons-material/SportsBar';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+
+import Copyright from '@/components/Footer';
 import InputField from '@/components/InputField';
 import FieldError from '@/components/FieldError';
 
-const defaultTheme = createTheme();
+import styles from './page.module.css';
 
 export const signInSchema = z.object({
   email: z.string().min(1, 'O campo email é obrigatório!').email('Email inválido!'),
@@ -73,85 +73,92 @@ export default function SignIn() {
     if (response.status === 401) setSignInError('Email e/ou senha incorreto(s)!');
 
   };
-
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container component='main' maxWidth='xs'>
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <LockOutlinedIcon />
-          <Typography component='h1' variant='h5'>
-            Login
-          </Typography>
-          <Typography component='p' sx={{ color: 'red' }}>{signInError}</Typography>
-          <Box
-            component='form'
-            onSubmit={handleSubmit(handleSignIn)}
-            noValidate
-            minWidth={'100%'}
-            sx={{ mt: 1, minWidth: '35vw', p: 5 }}
-          >
-            <InputField
-              {...register('email')}
-              label='Email'
-              error={!!errors.email}
-            />
-
-            {errors.email && <FieldError message={errors.email.message!} />}
-            <FormControl fullWidth sx={{ mt: 1 }} variant='outlined'>
-              <InputLabel htmlFor='outlined-adornment-password'>
-                Senha
-              </InputLabel>
-              <OutlinedInput
-                id='outlined-adornment-password'
-                type={showPassword ? 'text' : 'password'}
-                error={!!errors.password}
-                {...register('password')}
-                endAdornment={
-                  <InputAdornment position='end'>
-                    <IconButton
-                      aria-label='toggle password visibility'
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge='end'
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label='Senha'
+    <Box component='main' maxWidth='xs' className={styles['signin-container']}>
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <SportsBarIcon sx={{ color: '#dcd01258', fontSize: '90px' }} />
+        <Typography component='h1' variant='h4' color="white">
+          Beer World - Cadastre-se
+        </Typography>
+        <Typography component='p' sx={{ color: 'red' }}>
+          {signInError}
+        </Typography>
+        <Box component='form' noValidate onSubmit={handleSubmit(handleSignIn)} mt={3}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <InputField
+                {...register('email')}
+                label='Email'
               />
-            </FormControl>
-            {errors.password && <FieldError message={errors.password.message!} />}
-            <Button
-              type='submit'
-              fullWidth
-              variant='contained'
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
-            <Grid container justifyContent='flex-end'>
-              <Grid item>
-                <Link href='/signUp' variant='body2'>
-                  {'Ainda não possui uma conta? Cadastre-se'}
-                </Link>
-              </Grid>
+              {errors.email && <FieldError message={errors.email.message!} />}
             </Grid>
-          </Box>
+            <Grid item xs={12}>
+              <FormControl fullWidth variant='outlined'>
+                <InputLabel htmlFor='outlined-adornment-password'>
+                  Senha
+                </InputLabel>
+                <OutlinedInput
+                  autoComplete='off'
+                  id='outlined-adornment-password'
+                  type={showPassword ? 'text' : 'password'}
+                  {...register('password')}
+                  endAdornment={
+                    <InputAdornment position='end'>
+                      <IconButton
+                        aria-label='toggle password visibility'
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge='end'
+                      >
+                        {showPassword ? <VisibilityOff sx={{ color: 'primary.main' }} /> : <Visibility sx={{ color: 'primary.main' }} />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label='Senha'
+                  sx={{
+                    '& .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'primary.main',
+                    },
+                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'primary.dark',
+                    },
+                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'primary.main',
+                    },
+                  }}
+                />
+              </FormControl>
+
+              {errors.password && <FieldError message={errors.password.message!} />}
+            </Grid>
+          </Grid>
+          <Button
+            type='submit'
+            fullWidth
+            variant='contained'
+            sx={{ mt: 3, mb: 2, color: 'white', textTransform: 'none' }}
+          >
+            Cadastrar
+          </Button>
+          <Grid container justifyContent='flex-end'>
+            <Grid item>
+              <Link href='/signUp' variant='body2'>
+                Ainda não possui uma conta? Cadastre-se
+              </Link>
+            </Grid>
+          </Grid>
         </Box>
-        <Copyright />
+      </Box>
+      <Copyright />
 
-        <ToastContainer />
-
-      </Container>
-    </ThemeProvider>
+      <ToastContainer />
+    </Box>
   );
 }

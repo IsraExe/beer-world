@@ -2,7 +2,6 @@ import { TextField, TextFieldProps } from '@mui/material';
 import { InputHTMLAttributes, forwardRef } from 'react';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  error: boolean;
   label: string;
 }
 
@@ -15,7 +14,21 @@ const InputField = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
       required
       fullWidth
       autoFocus
+      autoComplete='off'
       inputRef={ref}
+      sx={{
+        '& .MuiOutlinedInput-root': {
+          '& fieldset': {
+            borderColor: 'primary.main',
+          },
+          '&:hover fieldset': {
+            borderColor: 'primary.dark',
+          },
+          '&.Mui-focused fieldset': {
+            borderColor: 'primary.main',
+          },
+        },
+      }}
     />
   );
 });
