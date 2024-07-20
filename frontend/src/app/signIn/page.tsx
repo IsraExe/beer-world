@@ -14,6 +14,8 @@ import { Button, Link, Grid, Box, Typography, InputLabel, OutlinedInput, InputAd
 import SportsBarIcon from '@mui/icons-material/SportsBar';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
+import fetchData from '@/utils/fetchData';
+
 import Copyright from '@/components/Footer';
 import InputField from '@/components/InputField';
 import FieldError from '@/components/FieldError';
@@ -58,14 +60,7 @@ export default function SignIn() {
 
   const handleSignIn = async (data: TSignInSchema) => {
 
-    const response = await fetch('http://localhost:3001/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data),
-      credentials: 'include'
-    });
+    const { response } = await fetchData({ method: 'POST', pathname: '/login', data });
 
     if (response.ok) return router.push('/home');
 
@@ -73,6 +68,7 @@ export default function SignIn() {
     if (response.status === 401) setSignInError('Email e/ou senha incorreto(s)!');
 
   };
+
   return (
     <Box component='main' maxWidth='xs' className={styles['signin-container']}>
       <Box

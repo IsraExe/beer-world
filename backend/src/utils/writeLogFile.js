@@ -12,7 +12,14 @@ const writeLogFile = (req, res, error) => {
     const fileExists = fs.existsSync(logFilePath);
     if (!fileExists) logStream.write('method | login | url | request body | status code | error | hour \n');
 
-    const requestDetails = `${req.method} | ${req.params?.user} | ${decodeURI(req.originalUrl)} | ${JSON.stringify(req.body)} | ${error?.statusCode || res.statusCode} | ${error} | ${hour} \n`;
+    const { password, ...requestBodyInfo } = req.body;
+
+    const reqBodyChangePass = {
+        ...requestBodyInfo,
+        password: '**********'
+    };
+
+    const requestDetails = `${req.method} | ${req.params?.user} | ${decodeURI(req.originalUrl)} | ${JSON.stringify(reqBodyChangePass)} | ${error?.statusCode || res.statusCode} | ${error} | ${hour} \n`;
 
     const compressedQuery = requestDetails.replace(/\n\s*/g, ' ');
 

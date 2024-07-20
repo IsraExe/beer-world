@@ -1,6 +1,7 @@
 import express from 'express';
 import 'express-async-errors';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 import logger from './middlewares/logger.js';
 import errorHandler from './middlewares/errorHandler.js';
@@ -8,6 +9,7 @@ import limiter from './middlewares/limiter.js';
 
 import loginRoutes from './routes/loginRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 
 import { SERVER_PORT, CORS_OPTIONS } from './config/constants.js';
 
@@ -15,6 +17,7 @@ import './scripts/cleanupLogs.js';
 
 const app = express();
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -22,6 +25,8 @@ app.use(cors(CORS_OPTIONS));
 
 app.use(limiter);
 app.use(logger);
+
+app.use('/auth', authRoutes);
 
 app.use('/login', loginRoutes);
 app.use('/user', userRoutes);

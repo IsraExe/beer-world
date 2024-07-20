@@ -7,7 +7,7 @@ const errorHandler = async (error, req, res, next) => {
 
     if (error.code === DB_ERROR_CODE.conflict) return res.status(409).send({ error: `The ${error.meta.target} already exists!` });
 
-    console.log(error)
+    if (error.name === 'TokenExpiredError' || error.name === 'JsonWebTokenError') return res.status(401).send({ error: 'Invalid token' });
     
     const statusCode = error?.statusCode || 500;
     const messageError = error?.statusCode ? error?.message : 'Server internal error';

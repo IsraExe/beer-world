@@ -17,6 +17,8 @@ import FieldError from '@/components/FieldError';
 
 import styles from './page.module.css';
 
+import fetchData from '@/utils/fetchData';
+
 export const signUpSchema = z.object({
   name: z.string().min(1, "O campo nome completo é obrigatório!").max(50, "O campo nome completo deve ter no maximo 50 caracteres."),
   email: z.string().min(1, "O campo email é obrigatório!").email('Email inválido!').max(50, "O campo email deve ter no maximo 50 caracteres."),
@@ -36,14 +38,7 @@ export default function SignUp() {
 
   const handleSignUp = async (data: TSignUpSchema) => {
 
-    const response = await fetch('http://localhost:3001/user/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data),
-      credentials: 'include'
-    });
+    const { response } = await fetchData({ method: 'POST', pathname: '/user/create', data });
 
     if (response.ok) return router.push('/signIn?showModal=true');
 

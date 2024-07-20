@@ -12,6 +12,8 @@ export default function Home() {
     (async () => {
       const { response } = await fetchData({ method: 'GET', pathname: '/auth' });
 
+      console.log(response)
+
       if (response.status !== 200) return router.push('/signIn');
       
       router.push('/home');
@@ -21,8 +23,8 @@ export default function Home() {
 
   return (
 
-    <div className='flex items-center justify-center w-full h-screen dark:bg-gray-900'>
-      <CircularProgress />
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+      <CircularProgress size={100} />
     </div>
 
   )
