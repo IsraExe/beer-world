@@ -2,20 +2,18 @@
 
 import { useEffect, useState } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Avatar, Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container, InputLabel, OutlinedInput, InputAdornment, IconButton, FormControl } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from '@/components/Copyright';
-
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-
 
 const defaultTheme = createTheme();
 
@@ -27,6 +25,8 @@ export const signInSchema = z.object({
 export type TSignInSchema = z.infer<typeof signInSchema>;
 
 export default function SignIn() {
+
+  const [signInError, setSignInError] = useState<string | null>(null);
 
   const searchParams = useSearchParams();
   const redirectFromSignUp = searchParams.get('showModal');
@@ -53,17 +53,23 @@ export default function SignIn() {
     resolver: zodResolver(signInSchema),
   });
 
-  const handleSignIn = (data: TSignInSchema) => {
-    console.log(data);
+  const handleSignIn = async (data: TSignInSchema) => {
 
-    // const data = new FormData(event.currentTarget);
-    // console.log({
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // });
+    const response = await fetch('http://localhost:3001/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data),
+      credentials: 'include'
+    });
+
+    if (response.ok) return router.push('/home');
+
+    if (response.status === 500) setSignInError('Ocorreu um erro no servidor, tente novamente mais tarde.');
+    if (response.status === 401) setSignInError('Email e/ou senha incorreto(s)!');
+
   };
-
-  console.log(errors);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -81,8 +87,9 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Login
           </Typography>
+          <Typography component="p" sx={{ color: "red" }}>{signInError}</Typography>
           <Box
             component="form"
             onSubmit={handleSubmit(handleSignIn)}

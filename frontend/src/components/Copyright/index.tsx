@@ -1,4 +1,4 @@
-import { Typography, Link } from "@mui/material";
+import { Typography, Link } from '@mui/material';
 
 export default function Copyright() {
   return (
@@ -9,7 +9,7 @@ export default function Copyright() {
       sx={{ mt: 5 }}
           >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
+      <Link color="inherit" href="#">
         Beer World
       </Link>{" "}
       {new Date().getFullYear()}

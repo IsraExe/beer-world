@@ -11,4 +11,8 @@ export const CORS_OPTIONS = {
 
 };
 
+export const DB_ERROR_CODE = {
+    conflict: 'P2002'
+};
+
 export const EVERY_DAY_CRON = '0 0 * * *';

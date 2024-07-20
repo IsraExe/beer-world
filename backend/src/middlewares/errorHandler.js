@@ -1,10 +1,13 @@
 import writeLogFile from '../utils/writeLogFile.js';
+import { DB_ERROR_CODE } from '../config/constants.js';
 
 const errorHandler = async (error, req, res, next) => {
 
     res.on('finish', () => writeLogFile(req, res, error));
 
-    if (error.code === 'ENOENT') return res.status(404).send({ error: `Not found folder or file ${error.path}` });
+    if (error.code === DB_ERROR_CODE.conflict) return res.status(409).send({ error: `The ${error.meta.target} already exists!` });
+
+    console.log(error)
     
     const statusCode = error?.statusCode || 500;
     const messageError = error?.statusCode ? error?.message : 'Server internal error';
