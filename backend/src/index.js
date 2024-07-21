@@ -11,6 +11,7 @@ import loginRoutes from './routes/loginRoutes.js';
 import logoutRoutes from './routes/logoutRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import authRoutes from './routes/authRoutes.js';
+import beerRoutes from './routes/beerRoutes.js';
 
 import { SERVER_PORT, CORS_OPTIONS } from './config/constants.js';
 
@@ -24,23 +25,14 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cors(CORS_OPTIONS));
 app.use(limiter);
-app.use(logger)
+app.use(logger);
 
 app.use('/auth', authRoutes);
 app.use('/login', loginRoutes);
 app.use('/logout', logoutRoutes);
 app.use('/user', userRoutes);
 
-
-app.use('/', async (req, res) => {
-
-    const response = await fetch('https://app2.mytapp.com.br/api/app/getTaps?e_id=456', { method: 'GET' });
-    const message = await response.json();
-    const data = message.info.data;
-
-    res.status(200).send({ message: data })
-});
-
+app.use('/beerInfo', beerRoutes);
 
 app.use((req, res) => res.status(404).send({ error: 'Not found route' }));
 

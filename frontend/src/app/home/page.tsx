@@ -1,4 +1,4 @@
-import CollapsibleTable from "./components/CollapsibleTable";
+import CollapsibleTable from "../../components/CollapsibleTable/CollapsibleTable";
 
 export default function Home() {
   return (

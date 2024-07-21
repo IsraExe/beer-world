@@ -14,10 +14,10 @@ const writeLogFile = (req, res, error) => {
 
     const { password, ...requestBodyInfo } = req.body;
 
-    const reqBodyChangePass = {
+    const reqBodyChangePass = password ? {
         ...requestBodyInfo,
         password: '**********'
-    };
+    } : requestBodyInfo;
 
     const requestDetails = `${req.method} | ${req.params?.user} | ${decodeURI(req.originalUrl)} | ${JSON.stringify(reqBodyChangePass)} | ${error?.statusCode || res.statusCode} | ${error} | ${hour} \n`;
 

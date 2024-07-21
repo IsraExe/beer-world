@@ -12,8 +12,6 @@ export default function Home() {
     (async () => {
       const { response } = await fetchData({ method: 'GET', pathname: '/auth' });
 
-      console.log(response)
-
       if (response.status !== 200) return router.push('/signIn');
       
       router.push('/home');
