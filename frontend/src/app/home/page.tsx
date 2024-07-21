@@ -1,7 +1,9 @@
+import CollapsibleTable from "./components/CollapsibleTable";
+
 export default function Home() {
-    return (
-        <main>
-             Bem vindos à página inicial   
-        </main>
-    );
+  return (
+    <main>
+      <CollapsibleTable />
+    </main>
+  );
 };
