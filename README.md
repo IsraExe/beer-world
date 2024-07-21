@@ -1,29 +1,21 @@
-> O CRUD de usuários não necessita interface, coloque os endpoints disponíveis no README do projeto.
+### Início
+1. Abra seu terminal e clone este projeto com o seguinte comanndo "git clone https://github.com/IsraExe/beer-world.git"
 
-### Backend 
-
-1 - Abra o terminal e digite "npm i" para baixar todas as dependências do projeto
-2 - 
+### Backend e banco de dados
+1. Abra um terminal da pasta "backend" e digite "npm i" para baixar todas as dependências do projeto.
+2. Crie um arquivo na raíz da pasta "backend" chamado de ".env".
+3. Copie todo o texto que está o ".env.example" e cole para o arquivo ".env". Mude o valor das variáveis de ambiente conforme as necessidade do seu ambiente local.
+4. Crie um banco de dados no pgAdmin ou ferramente de sua preferência com o mesmo nome que você colocou no .env do projeto. Caso tenha usado o exemplo dado, o banco deve se chamar "beer_world".
+5. Starte o projeto escrevendo "npm run dev" no terminal.
 
 ### Front-end
-O front-end deve apresentar pelo menos os seguintes requisitos:
-  - Interface de login
-    - Feedbacks de usuário ou senha incorreta
-  - Listagem dos dados da API
-  - Paginação dos dados
-  
-> Pode ser utilizado qualquer framework front-end, preprocessadores de css, task runners, bundlers, ... de sua preferência, mas nenhum deles é de uso obrigatório.
+1. Abra o terminal da pasta "frontend" e digite "npm i" para baixar todas as dependências do projeto.
+2. Crie um arquivo na raíz da pasta "frontend" chamado de ".env".
+3. Copie todo o texto que está o ".env.example" e cole para o arquivo ".env". Mude o valor das variáveis de ambiente conforme as necessidade do seu ambiente local.
+4. Starte o projeto escrevendo "npm run dev" no terminal.
 
-## Critérios de avaliação
-- Funcionamento do projeto
-- Estrutura do código
-- Uso de boas práticas
-- Cumprimento dos requisitos mínimos
-
-## Deve ser entregue:
-- Um repositório git (fork deste)
-- Um README do projeto com o passo-a-passo para executar a aplicação.
-> Não se deve fazer o commit de pastas como `node_modules`, o projeto deve instalar suas dependências a partir do `package.json`
+## Informações Importantes
+- Somente node versão 20 ou superior. 
 
 ## Extras:
 - Build para produção
