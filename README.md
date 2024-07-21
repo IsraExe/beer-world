@@ -5,7 +5,7 @@
 1. Abra um terminal da pasta "backend" e digite "npm i" para baixar todas as dependências do projeto.
 2. Crie um arquivo na raíz da pasta "backend" chamado de ".env".
 3. Copie todo o texto que está o ".env.example" e cole para o arquivo ".env". Mude o valor das variáveis de ambiente conforme as necessidade do seu ambiente local.
-4. Crie um banco de dados no pgAdmin ou ferramente de sua preferência com o mesmo nome que você colocou no .env do projeto. Caso tenha usado o exemplo dado, o banco deve se chamar "beer_world".
+4. Crie um banco de dados usando a ferramente de sua preferência com o mesmo nome do banco que você colocou no ".env" do projeto. Caso tenha usado o exemplo dado, o banco deve se chamar "beer_world".
 5. Starte o projeto escrevendo "npm run dev" no terminal.
 
 ### Front-end

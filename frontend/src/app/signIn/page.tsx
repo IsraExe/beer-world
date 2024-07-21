@@ -22,12 +22,12 @@ import FieldError from '@/components/FieldError';
 
 import styles from './page.module.css';
 
-export const signInSchema = z.object({
+const signInSchema = z.object({
   email: z.string().min(1, 'O campo email é obrigatório!').email('Email inválido!'),
   password: z.string().min(1, 'O campo senha é obrigatório!')
 });
 
-export type TSignInSchema = z.infer<typeof signInSchema>;
+type TSignInSchema = z.infer<typeof signInSchema>;
 
 export default function SignIn() {
 
@@ -46,7 +46,7 @@ export default function SignIn() {
 
       router.replace(pathname, undefined);
     };
-  }, []);
+  }, [router, pathname, redirectFromSignUp]);
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -56,7 +56,7 @@ export default function SignIn() {
 
   const { register, handleSubmit, formState: { errors } } = useForm<TSignInSchema>({
     resolver: zodResolver(signInSchema),
-  });
+  }); 
 
   const handleSignIn = async (data: TSignInSchema) => {
 

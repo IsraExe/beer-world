@@ -19,13 +19,13 @@ import styles from './page.module.css';
 
 import fetchData from '@/utils/fetchData';
 
-export const signUpSchema = z.object({
+const signUpSchema = z.object({
   name: z.string().min(1, "O campo nome completo é obrigatório!").max(50, "O campo nome completo deve ter no maximo 50 caracteres."),
   email: z.string().min(1, "O campo email é obrigatório!").email('Email inválido!').max(50, "O campo email deve ter no maximo 50 caracteres."),
   password: z.string().min(1, "O campo senha é obrigatório!").max(64, "O campo senha deve ter no maximo 64 caracteres."),
 });
 
-export type TSignUpSchema = z.infer<typeof signUpSchema>;
+type TSignUpSchema = z.infer<typeof signUpSchema>;
 
 export default function SignUp() {
   const [signUpError, setSignUpError] = useState<string | null>(null);
