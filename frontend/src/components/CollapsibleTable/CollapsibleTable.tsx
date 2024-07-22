@@ -4,22 +4,9 @@ import { useMemo, useState } from 'react';
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress } from '@mui/material';
 import useFetch from '@/hooks/useFetch';
 import Pagination from './Pagination/Pagination';
+import { BeerInfo } from '@/types';
 
 import Row from './Row/Row';
-
-type BeerInfo = {
-  "tap_id": number,
-  "price_ml": number,
-  "beer_id": number,
-  "beer_name": string,
-  "beer_style": string,
-  "beer_ibu": number,
-  "beer_alcohol": number,
-  "beer_description": string,
-  "beer_image": string,
-  "brewery": string,
-  "brewery_image": string
-}
 
 type PulledData = {
   message: {
@@ -59,7 +46,7 @@ export default function CollapsibleTable() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {pulledData?.message.data?.map((row: any) => (
+                {pulledData?.message.data?.map((row: BeerInfo) => (
                   <Row key={row['tap_id']} row={row} />
                 ))}
               </TableBody>

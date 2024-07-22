@@ -3,8 +3,9 @@ import { Box, Collapse, IconButton, Table, TableBody, TableCell, TableRow, Typog
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-export default function Row(props: { row: any }) {
-  const { row } = props;
+import { BeerInfo } from '@/types';
+
+export default function Row({ row }: { row: BeerInfo }) {
   const [open, setOpen] = useState(false);
 
   return (

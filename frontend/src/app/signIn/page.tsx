@@ -62,8 +62,6 @@ export default function SignIn() {
 
     const { response } = await fetchData({ method: 'POST', pathname: '/user/login', data });
 
-    console.log(response)
-
     if (response.ok) {
       const { token } = await response.json();
       localStorage.setItem('token', token);

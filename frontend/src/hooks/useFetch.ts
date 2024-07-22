@@ -15,7 +15,7 @@ interface FetchResponse<T> {
 }
 
 export default function useFetch<T>({ pathname, data, method }: UseFetchProps): FetchResponse<T> {
-  const [pulledData, setPulledData] = useState<any>(null);
+  const [pulledData, setPulledData] = useState<T>({} as T);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -44,7 +44,7 @@ export default function useFetch<T>({ pathname, data, method }: UseFetchProps): 
         const dataFetched = await response.json();
 
         if ((response.status === 401 || response.status === 400)) return router.push('/signIn');
-        
+
         if (!response.ok) {
           setError(`HTTP error! status: ${response.status}`);
           setLoading(false);
@@ -53,12 +53,14 @@ export default function useFetch<T>({ pathname, data, method }: UseFetchProps): 
 
         setPulledData(dataFetched);
         setLoading(false);
-      } catch (err: any) {
-        if (err.name === 'AbortError') return;
-        else {
+      } catch (err) {
+        if (err instanceof Error) {
+          if (err.name === 'AbortError') return;
           setError(err.message);
-          setLoading(false);
+        } else {
+          setError('An unknown error occurred');
         }
+        setLoading(false);
       }
     })();
 
