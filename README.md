@@ -37,9 +37,9 @@
 - **Body da Requisição:**
     ```json
     {
-        "name": "string",    // O nome completo do usuário
-        "email": "string",   // O endereço de e-mail do usuário
-        "password": "string" // A senha para a conta do usuário
+        "name": "string",
+        "email": "string",
+        "password": "string"
     }
     ```
 
@@ -50,9 +50,9 @@
 - **Body da Requisição:**
     ```json
     {
-        "name": "string",    // O nome completo do usuário
-        "email": "string",   // O endereço de e-mail do usuário
-        "password": "string" // A senha para a conta do usuário
+        "name": "string",
+        "email": "string",
+        "password": "string"
     }
     ```
 
@@ -73,8 +73,8 @@
 - **Body da Requisição:**
     ```json
     {
-        "email": "string",   // O endereço de e-mail do usuário
-        "password": "string" // A senha para a conta do usuário
+        "email": "string",
+        "password": "string"
     }
     ```
 ### Deslogar Usuário
