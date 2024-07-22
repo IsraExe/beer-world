@@ -1,6 +1,6 @@
 const cookiesOptions = (host) => {
 
-    const domain = host === 'localhost' ? host : '.onrender.com';
+    const domain = host === 'localhost' ? host : 'onrender.com';
     const secure = host === 'localhost' ? false : true;
 
     console.log(host.slice(host.indexOf('.'), host.length));
