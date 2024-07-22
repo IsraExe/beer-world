@@ -28,7 +28,6 @@
 - Dockerfile com todas dependências ✔️
 
 ## Endpoints
-## Endpoints
 
 ### Criar Usuário
 - **Endpoint:** `/user/create`
