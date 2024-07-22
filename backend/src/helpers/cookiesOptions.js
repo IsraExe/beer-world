@@ -7,7 +7,7 @@ const cookiesOptions = (host) => {
     const cookieOptions = {
         httpOnly: true,
         domain,
-        sameSite: 'Strict',
+        sameSite: 'None',
         secure,
         maxAge: oneDay
     };
