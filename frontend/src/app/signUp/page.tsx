@@ -22,7 +22,15 @@ import fetchData from '@/utils/fetchData';
 const signUpSchema = z.object({
   name: z.string().min(1, "O campo nome completo é obrigatório!").max(50, "O campo nome completo deve ter no maximo 50 caracteres."),
   email: z.string().min(1, "O campo email é obrigatório!").email('Email inválido!').max(50, "O campo email deve ter no maximo 50 caracteres."),
-  password: z.string().min(1, "O campo senha é obrigatório!").max(64, "O campo senha deve ter no maximo 64 caracteres."),
+  password: z.string().min(1, "O campo senha é obrigatório!").max(64, "O campo senha deve ter no maximo 64 caracteres.")
+    .regex(/[\W_]/, 'A senha deve conter pelo menos um caractere especial!')
+    .regex(/.*[a-z].*/, 'A senha deve conter pelo menos uma letra minúscula!')
+    .regex(/.*[A-Z].*/, 'A senha deve conter pelo menos uma letra maiúscula!')
+    .regex(/.*\d.*/, 'A senha deve conter pelo menos um número!'),
+  confirmPassword: z.string().min(1, "O campo confirmar senha é obrigatório!")
+}).refine(data => data.password === data.confirmPassword, {
+  message: 'A senha de confirmação não pode ser diferente!',
+  path: ['confirmPassword'],
 });
 
 type TSignUpSchema = z.infer<typeof signUpSchema>;
@@ -48,22 +56,23 @@ export default function SignUp() {
   };
 
   return (
-      <Box component='main' maxWidth='xs' className={styles['signup-container']}>
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center', 
-          }}
-        >
-          <SportsBarIcon sx={{ color: '#afa40a', fontSize: '90px' }} />
-          <Typography component='h1' variant='h4' color="white">
-            Beer World - Cadastre-se
-          </Typography>
-          <Typography component='p' sx={{ color: 'red' }}>
-            {signUpError}
-          </Typography>
+    <Box component='main' maxWidth='xs' className={styles['signup-container']}>
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <SportsBarIcon sx={{ color: '#afa40a', fontSize: '90px' }} />
+        <Typography component='h1' variant='h4' color="white">
+          Beer World - Cadastre-se
+        </Typography>
+        <Typography component='p' sx={{ color: 'red' }}>
+          {signUpError}
+        </Typography>
+        <Box sx={{ maxWidth: '60%' }}>
           <Box component='form' noValidate onSubmit={handleSubmit(handleSignUp)} mt={3}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
@@ -88,6 +97,14 @@ export default function SignUp() {
                 />
                 {errors.password && <FieldError message={errors.password.message!} />}
               </Grid>
+              <Grid item xs={12}>
+                <InputField
+                  {...register('confirmPassword')}
+                  label='Confirme sua Senha'
+                  type='password'
+                />
+                {errors.confirmPassword && <FieldError message={errors.confirmPassword.message!} />}
+              </Grid>
             </Grid>
             <Button
               type='submit'
@@ -106,7 +123,10 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
-        <Copyright />
+
+
       </Box>
+      <Copyright />
+    </Box>
   );
 }

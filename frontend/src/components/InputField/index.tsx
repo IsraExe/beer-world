@@ -13,7 +13,6 @@ const InputField = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
       margin='none'
       required
       fullWidth
-      autoFocus
       autoComplete='off'
       inputRef={ref}
       sx={{
