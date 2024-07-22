@@ -57,7 +57,7 @@ export default function SignUp() {
             alignItems: 'center', 
           }}
         >
-          <SportsBarIcon sx={{ color: '#dcd01258', fontSize: '90px' }} />
+          <SportsBarIcon sx={{ color: '#afa40a', fontSize: '90px' }} />
           <Typography component='h1' variant='h4' color="white">
             Beer World - Cadastre-se
           </Typography>

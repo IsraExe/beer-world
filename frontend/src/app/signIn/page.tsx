@@ -79,9 +79,9 @@ export default function SignIn() {
           alignItems: 'center',
         }}
       >
-        <SportsBarIcon sx={{ color: '#dcd01258', fontSize: '90px' }} />
+        <SportsBarIcon sx={{ color: '#afa40a', fontSize: '90px' }} />
         <Typography component='h1' variant='h4' color="white">
-          Beer World - Cadastre-se
+          Beer World - Login
         </Typography>
         <Typography component='p' sx={{ color: 'red' }}>
           {signInError}
@@ -141,12 +141,12 @@ export default function SignIn() {
             variant='contained'
             sx={{ mt: 3, mb: 2, color: 'white', textTransform: 'none' }}
           >
-            Cadastrar
+            Entrar
           </Button>
           <Grid container justifyContent='flex-end'>
             <Grid item>
               <Link href='/signUp' variant='body2'>
-                Ainda não possui uma conta? Cadastre-se
+                Ainda não possui uma conta? Cadastra-se
               </Link>
             </Grid>
           </Grid>
