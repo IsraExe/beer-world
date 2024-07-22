@@ -1,5 +1,4 @@
-### Início
-1. Abra seu terminal e clone este projeto com o seguinte comando "git clone https://github.com/IsraExe/beer-world.git"
+# Instruções para rodar o projeto
 
 ### Backend e banco de dados
 1. Abra um terminal da pasta "backend" e digite "npm i" para baixar todas as dependências do projeto.
