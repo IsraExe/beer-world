@@ -17,6 +17,7 @@
 ### Informações importantes
 - Desenvolvido em node versão 20.15.0.
 - Há duas versões de autorização de token. A de cookies é a oficial. A que salva no localstorage foi somente para o deploy funcionar em sua totalidade na hospedagem gratuita da onrender, pois após muita pesquisa descobri que tinha essa limitação.
+- Como não foi desenvolvido um sistema de permissão, as rotas de CRUD funcionam apenas ao próprio usuário. Por exemplo, o usuário só pode editar a si mesmo.
 
 ### Requisitos feitos:
 - Todos os endpoints de consulta de dados devem ter autenticação por webtoken ou similar ✔️
@@ -26,4 +27,57 @@
 - Build para produção: https://beer-world.onrender.com ✔️
 - Dockerfile com todas dependências ✔️
 
-### Endpoints
+## Endpoints
+## Endpoints
+
+### Criar Usuário
+- **Endpoint:** `/user/create`
+- **Método:** POST
+- **Descrição:** Cria um novo usuário com as informações fornecidas.
+- **Body da Requisição:**
+    ```json
+    {
+        "name": "string",    // O nome completo do usuário
+        "email": "string",   // O endereço de e-mail do usuário
+        "password": "string" // A senha para a conta do usuário
+    }
+    ```
+
+### Atualizar Usuário
+- **Endpoint:** `/user/update`
+- **Método:** PUT
+- **Descrição:** Atualiza o usuário com as informações fornecidas.
+- **Body da Requisição:**
+    ```json
+    {
+        "name": "string",    // O nome completo do usuário
+        "email": "string",   // O endereço de e-mail do usuário
+        "password": "string" // A senha para a conta do usuário
+    }
+    ```
+
+### Listar Todos os Usuários
+- **Endpoint:** `/user/list`
+- **Método:** GET
+- **Descrição:** Retorna todos os usuários registrados.
+
+### Deletar Usuário
+- **Endpoint:** `/user/delete`
+- **Método:** DELETE
+- **Descrição:** Deleta o usuário.
+
+### Login Usuário
+- **Endpoint:** `/user/login`
+- **Método:** POST
+- **Descrição:** Faz o login na aplicação de acordo com as informações fornecidas.
+- **Body da Requisição:**
+    ```json
+    {
+        "email": "string",   // O endereço de e-mail do usuário
+        "password": "string" // A senha para a conta do usuário
+    }
+    ```
+### Deslogar Usuário
+- **Endpoint:** `/user/logout`
+- **Método:** GET
+- **Descrição:** Desloga usuário da aplicação.

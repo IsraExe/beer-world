@@ -60,7 +60,9 @@ export default function SignIn() {
 
   const handleSignIn = async (data: TSignInSchema) => {
 
-    const { response } = await fetchData({ method: 'POST', pathname: '/login', data });
+    const { response } = await fetchData({ method: 'POST', pathname: '/user/login', data });
+
+    console.log(response)
 
     if (response.ok) {
       const { token } = await response.json();
