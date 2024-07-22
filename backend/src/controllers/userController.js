@@ -83,8 +83,19 @@ const login = async (req, res, next) => {
 
     res.cookie('token', token, cookieOptions);
 
-    return res.status(200).send({ message: 'Login successfully', user: userDetails });
+    return res.status(200).send({ message: 'Login successfully', user: userDetails, token });
 
 };
 
-export { create, update, read, exclude, login };
+const logout = async (req, res, next) => {
+
+    const host = req.hostname;
+    const domain = host === 'localhost' ? host : host.slice(host.indexOf('.'), host.length);
+
+    res.clearCookie('token', { domain });
+
+    return res.status(200).send({ message: 'Cookies cleared. Logout successfully' });
+
+};
+
+export { create, update, read, exclude, login, logout };

@@ -7,7 +7,6 @@ const auth = async (req, res, next) => {
 
     const { token } = req.cookies;
 
-
     if (!token && !tokenLocalStorage) return next(badRequestError('No token provided'));
 
     const tokenRecieved = token || tokenLocalStorage;

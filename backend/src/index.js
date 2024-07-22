@@ -7,8 +7,6 @@ import logger from './middlewares/logger.js';
 import errorHandler from './middlewares/errorHandler.js';
 import limiter from './middlewares/limiter.js';
 
-import loginRoutes from './routes/loginRoutes.js';
-import logoutRoutes from './routes/logoutRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import beerRoutes from './routes/beerRoutes.js';
@@ -28,8 +26,6 @@ app.use(limiter);
 app.use(logger);
 
 app.use('/auth', authRoutes);
-app.use('/login', loginRoutes);
-app.use('/logout', logoutRoutes);
 app.use('/user', userRoutes);
 
 app.use('/beerInfo', beerRoutes);
