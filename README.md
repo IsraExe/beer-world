@@ -1,5 +1,5 @@
 ### Início
-1. Abra seu terminal e clone este projeto com o seguinte comanndo "git clone https://github.com/IsraExe/beer-world.git"
+1. Abra seu terminal e clone este projeto com o seguinte comando "git clone https://github.com/IsraExe/beer-world.git"
 
 ### Backend e banco de dados
 1. Abra um terminal da pasta "backend" e digite "npm i" para baixar todas as dependências do projeto.
@@ -14,9 +14,19 @@
 3. Copie todo o texto que está o ".env.example" e cole para o arquivo ".env". Mude o valor das variáveis de ambiente conforme as necessidade do seu ambiente local.
 4. Starte o projeto escrevendo "npm run dev" no terminal.
 
-## Informações Importantes
+## Requisitos
 - Somente node versão 20 ou superior. 
+
 
 ## Extras:
 - Build para produção
-- Docker file com todas dependências
+- Docker file com todas dependências 
+
+## Requisitos feitos:
+- Todos os endpoints de consulta de dados devem ter autenticação por webtoken ou similar ✔️
+- Interface de login com feedbacks de usuário ou senha incorreta ✔️
+- Listagem dos dados da API ✔️
+- Paginação dos dados ✔️
+- Build para produção
+- Dockerfile com todas dependências ✔️
+

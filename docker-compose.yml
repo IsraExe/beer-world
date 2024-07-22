@@ -1,0 +1,30 @@
+services:
+  beerworld-backend:
+    build: ./backend
+    container_name: beerworld-backend
+    restart: unless-stopped
+    ports:
+      - '3001:3000'
+    volumes:
+      - ../volumes/beerworld/logs:/app/src/logs/
+    networks:
+      - app-network
+
+  beerworld-frontend:
+    depends_on:
+      - beerworld-backend
+    build: ./frontend
+    container_name: beerworld-frontend
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    environment:
+      NEXT_PUBLIC_SERVER_URL: http://beerworld-backend:3000
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydatabase
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
