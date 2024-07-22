@@ -7,6 +7,28 @@ import Pagination from './Pagination/Pagination';
 
 import Row from './Row/Row';
 
+type BeerInfo = {
+  "tap_id": number,
+  "price_ml": number,
+  "beer_id": number,
+  "beer_name": string,
+  "beer_style": string,
+  "beer_ibu": number,
+  "beer_alcohol": number,
+  "beer_description": string,
+  "beer_image": string,
+  "brewery": string,
+  "brewery_image": string
+}
+
+type PulledData = {
+  message: {
+    data: BeerInfo[];
+    total_pages: number;
+    currentPage: number;
+  };
+}
+
 export default function CollapsibleTable() {
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,7 +37,7 @@ export default function CollapsibleTable() {
     page: currentPage,
   }), [currentPage]);
 
-  const { pulledData, loading } = useFetch({ method: 'POST', pathname: '/beerInfo', data: memoizedData });
+  const { pulledData, loading } = useFetch<PulledData>({ method: 'POST', pathname: '/beerInfo', data: memoizedData });
 
   const getSelectedPage = (data: number) => setCurrentPage(data);
 

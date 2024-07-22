@@ -9,7 +9,12 @@ type UseFetchProps = {
   method: string,
 };
 
-export default function useFetch({ pathname, data, method }: UseFetchProps) {
+interface FetchResponse<T> {
+  pulledData: T;
+  loading: boolean;
+}
+
+export default function useFetch<T>({ pathname, data, method }: UseFetchProps): FetchResponse<T> {
   const [pulledData, setPulledData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
