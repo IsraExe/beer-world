@@ -1,7 +1,7 @@
 const logout = async (req, res, next) => {
 
     const host = req.hostname;
-    const domain = host === 'localhost' ? host : '.onrender.com';
+    const domain = host === 'localhost' ? host : host.slice(host.indexOf('.'), host.length);
 
     res.clearCookie('token', { domain });
 

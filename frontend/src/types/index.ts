@@ -3,6 +3,7 @@ export interface FetchOptions {
     headers?: {
         'Cookie'?: string;
         'Content-Type'?: string;
+        'Authorization'?: string;
     };
     body?: string;
     credentials?: 'include';

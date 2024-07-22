@@ -14,8 +14,9 @@
 3. Copie todo o texto que está o ".env.example" e cole para o arquivo ".env". Mude o valor das variáveis de ambiente conforme as necessidade do seu ambiente local.
 4. Starte o projeto escrevendo "npm run dev" no terminal.
 
-### Requisitos
-- Somente node versão 20 ou superior.  
+### Informações importantes
+- Desenvolvido em node versão 20.15.0.
+- Há duas versões de autorização de token. A de cookies é a oficial. A que salva no localstorage foi somente para o deploy funcionar em sua totalidade na hospedagem gratuita da onrender, pois após muita pesquisa descobri que tinha essa limitação.
 
 ### Requisitos feitos:
 - Todos os endpoints de consulta de dados devem ter autenticação por webtoken ou similar ✔️
@@ -24,3 +25,5 @@
 - Paginação dos dados ✔️
 - Build para produção: https://beer-world.onrender.com ✔️
 - Dockerfile com todas dependências ✔️
+
+### Endpoints

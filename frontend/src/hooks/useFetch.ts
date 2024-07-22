@@ -27,7 +27,8 @@ export default function useFetch({ pathname, data, method }: UseFetchProps) {
         const options: FetchOptions = {
           method: method,
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `${localStorage.getItem('token')}`
           },
           body: JSON.stringify(data),
           credentials: 'include',

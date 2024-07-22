@@ -62,7 +62,11 @@ export default function SignIn() {
 
     const { response } = await fetchData({ method: 'POST', pathname: '/login', data });
 
-    if (response.ok) return router.push('/home');
+    if (response.ok) {
+      const { token } = await response.json();
+      localStorage.setItem('token', token);
+      return router.push('/home')
+    };
 
     if (response.status === 500) setSignInError('Ocorreu um erro no servidor, tente novamente mais tarde.');
     if (response.status === 401) setSignInError('Email e/ou senha incorreto(s)!');

@@ -30,7 +30,7 @@ const login = async (req, res, next) => {
 
     res.cookie('token', token, cookieOptions);
 
-    return res.status(200).send({ message: 'Login successfully', user: userDetails });
+    return res.status(200).send({ message: 'Login successfully', user: userDetails, token });
 
 };
 

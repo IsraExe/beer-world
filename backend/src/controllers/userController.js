@@ -1,6 +1,12 @@
 import bcrypt from 'bcrypt';
 import { createUser, updateUser, viewUsers, deleteUser } from '../repositories/userRepository.js';
 import verifyReqFields from '../utils/verifyReqFields.js';
+import { PrismaClient } from '@prisma/client'
+import { badRequestError, unauthorizedError } from '../utils/errorException.js';
+import cookiesOptions from '../helpers/cookiesOptions.js';
+import createTokens from '../helpers/createTokens.js';
+
+const prisma = new PrismaClient();
 
 const create = async (req, res, next) => {
 
@@ -46,7 +52,7 @@ const exclude = async (req, res, next) => {
     await deleteUser(id);
 
     const host = req.hostname;
-    const domain = host === 'localhost' ? host : '.onrender.com';
+    const domain = host === 'localhost' ? host : host.slice(host.indexOf('.'), host.length);
 
     res.clearCookie('token', { domain });
 
@@ -54,4 +60,31 @@ const exclude = async (req, res, next) => {
 
 };
 
-export { create, update, read, exclude };
+const login = async (req, res, next) => {
+
+    const { email, password } = req.body;
+
+    const host = req.hostname;
+
+    const cookieOptions = cookiesOptions(host);
+
+    if (!email || !password) return next(badRequestError('Email and/or password is missing'));
+
+    const user = await prisma.user.findUnique({ where: { email } });
+
+    if (!user) return next(unauthorizedError('User and/or password invalid'));
+
+    const isValidPassword = await bcrypt.compare(password, user.password);
+    if (!isValidPassword) return next(unauthorizedError('User and/or password invalid'));
+
+    const { token } = createTokens(user.id);
+
+    const { password: removePassFromUserInfo, ...userDetails } = user;
+
+    res.cookie('token', token, cookieOptions);
+
+    return res.status(200).send({ message: 'Login successfully', user: userDetails });
+
+};
+
+export { create, update, read, exclude, login };
