@@ -46,7 +46,7 @@ const exclude = async (req, res, next) => {
     await deleteUser(id);
 
     const host = req.hostname;
-    const domain = host === 'localhost' ? host : host.slice(host.indexOf('.'), host.length);
+    const domain = host === 'localhost' ? host : '.onrender.com';
 
     res.clearCookie('token', { domain });
 
