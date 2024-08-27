@@ -1,0 +1,10 @@
+# Node files
+node_modules/
+
+# Ignore files in log directory
+logs/*
+!logs/.gitkeep
+*log
+
+# dotenv
+.env
